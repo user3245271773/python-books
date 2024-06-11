@@ -1,0 +1,82 @@
+from tkinter import *
+from tkinter import messagebox
+
+
+def add_contact():
+    name = name_entry.get()
+    book = book_entry.get()
+    year = year_entry.get()
+    if name and book:
+        contacts_listbox.insert(END, f"{name}: {book} , {year}")
+        name_entry.delete(0, END)
+        book_entry.delete(0, END)
+        year_entry.delete(0, END)
+    else:
+        messagebox.showerror("Помилка", "Будь ласка введіть ім'я та номер контакту.")
+
+
+def delete_contact():
+    select_contact = contacts_listbox.curselection()
+    if select_contact:
+        contacts_listbox.delete(select_contact)
+
+
+
+
+
+def change_book():
+    select_contact = contacts_listbox.curselection()
+    if select_contact:
+        contacts_listbox.delete(select_contact)
+    name = name_entry.get()
+    book = book_entry.get()
+    year = year_entry.get()
+    if name and book:
+        contacts_listbox.insert(END, f"{name}: {book} , {year}")
+        name_entry.delete(0, END)
+        book_entry.delete(0, END)
+        year_entry.delete(0, END)
+    else:
+        messagebox.showerror("Помилка", "Будь ласка введіть ім'я та номер контакту.")
+
+
+
+
+window = Tk()
+window.title("Керування списком контактів")
+
+name_label = Label(window, text="Ім'я:")
+name_label.grid(row=0, column=0, padx=10, pady=10)
+
+name_entry = Entry(window)
+name_entry.grid(row=0, column=1, padx=10, pady=10)
+
+
+book_label = Label(window, text="Назва книги:")
+book_label.grid(row=1, column=0, padx=10, pady=10)
+
+book_entry = Entry(window)
+book_entry.grid(row=1, column=1, padx=10, pady=10)
+
+
+year_label =  Label(window , text = "Рок випуску:")
+year_label.grid(row= 2 , column=0, padx=10, pady=10)
+
+year_entry =  Entry(window)
+year_entry.grid(row= 2 , column=1, columnspan=2, padx=10, pady=10)
+
+add_button = Button(window, text="Додати книгу", command=add_contact)
+add_button.grid(row=3, column=0, columnspan=2, padx=10, pady=10, sticky='WE')
+
+
+delete_button = Button(window, text="Видалити книгу", command=delete_contact)
+delete_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky='WE')
+
+
+change_button = Button(window, text="Змінити книгу", command=change_book)
+change_button.grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky='WE')
+
+contacts_listbox = Listbox(window)
+contacts_listbox.grid(row=6, column=0, columnspan=2, padx=10, pady=10, sticky='NSEW')
+
+window.mainloop()
